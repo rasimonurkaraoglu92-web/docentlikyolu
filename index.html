@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doçentlik Yolu — Türk Hekimler için Akademik Danışmanlık</title>
+<meta name="description" content="Makale danışmanlığı, istatistik analizi, etik kurul başvurusu ve ÜAK dosyası hazırlama. Türkiye'nin doçentlik odaklı akademik danışmanlık platformu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --ink-soft: #3d3d38;
+    --ink-muted: #7a7a72;
+    --ink-faint: #b0b0a8;
+    --paper: #faf9f6;
+    --paper-warm: #f3f0e8;
+    --paper-mid: #e8e4d8;
+    --gold: #b8933a;
+    --gold-light: #d4aa5a;
+    --gold-pale: #f5edd8;
+    --border: rgba(26,26,24,0.12);
+    --border-strong: rgba(26,26,24,0.22);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --max: 900px;
+    --radius: 4px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink-soft);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--ink-soft); }
+
+  /* AD LEADERBOARD */
+  .ad-strip {
+    background: var(--paper-warm);
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 2rem;
+    text-align: center;
+  }
+  .ad-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--paper-mid);
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 728px;
+  }
+  .ad-box.leader { height: 90px; }
+  .ad-box.banner { height: 120px; }
+  .ad-box.rect { height: 250px; width: 100%; }
+  .ad-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); }
+  .ad-size { font-size: 11px; color: var(--ink-muted); font-weight: 500; }
+  .ad-note { font-size: 10px; color: var(--ink-faint); }
+
+  /* HERO */
+  .hero {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 5rem 2rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold-light);
+    background: var(--gold-pale);
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    max-width: 400px;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-dark {
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-dark:hover { background: var(--ink-soft); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border-strong);
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--font-body);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover { background: var(--paper-warm); }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .hero-stat {
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem;
+  }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-num span { font-size: 18px; color: var(--gold); }
+  .hero-stat-lbl { font-size: 12px; color: var(--ink-muted); }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+
+  /* SECTIONS */
+  .section {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  .section-tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  /* SERVICES GRID */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .service-item {
+    background: var(--paper);
+    padding: 1.5rem;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .service-item:hover { background: var(--paper-warm); }
+  .service-item.highlight { background: var(--gold-pale); }
+  .service-item.highlight:hover { background: #efe5c8; }
+  .service-num {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--border-strong);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+  .service-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .service-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
+  .service-tag {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--gold-pale);
+    border: 1px solid var(--gold-light);
+    padding: 2px 8px;
+    border-radius: 100px;
+  }
+
+  /* HOW */
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    position: relative;
+  }
+  .how-grid::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: calc(12.5% + 1rem);
+    right: calc(12.5% + 1rem);
+    height: 1px;
+    background: var(--border-strong);
+  }
+  .how-step { text-align: center; }
+  .how-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--paper-warm);
+    border: 1px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 auto 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .how-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .how-desc { font-size: 12px; color: var(--ink-muted); line-height: 1.6; }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.1rem 1.5rem;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    font-family: var(--font-body);
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: background 0.2s;
+  }
+  .faq-q:hover { background: var(--paper-warm); }
+  .faq-q.open { background: var(--paper-warm); }
+  .faq-icon { font-size: 18px; color: var(--ink-muted); flex-shrink: 0; transition: transform 0.25s; }
+  .faq-q.open .faq-icon { transform: rotate(45deg); }
+  .faq-a {
+    display: none;
+    padding: 0 1.5rem 1.1rem;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    background: var(--paper-warm);
+  }
+  .faq-a.open { display: block; }
+
+  /* AD SECTIONS */
+  .ad-section {
+    background: var(--paper-warm);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    text-align: center;
+  }
+  .ad-section-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .ad-rect-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+
+  /* CTA BLOCK */
+  .cta-block {
+    background: var(--ink);
+    border-radius: 8px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    margin-top: 0;
+  }
+  .cta-block h2 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--paper);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .cta-block p { font-size: 14px; color: rgba(250,249,246,0.65); margin-bottom: 1.75rem; line-height: 1.7; }
+  .btn-gold {
+    background: var(--gold);
+    color: var(--paper);
+    border: none;
+    padding: 13px 28px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-gold:hover { background: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    background: var(--paper-warm);
+  }
+  .footer-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-links a { font-size: 12px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-copy { font-size: 12px; color: var(--ink-faint); }
+
+  /* RESPONSIVE */
+  @media (max-width: 680px) {
+    .hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 1.5rem 2.5rem; }
+    .hero h1 { font-size: 30px; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .how-grid { grid-template-columns: 1fr 1fr; }
+    .how-grid::before { display: none; }
+    .nav-links { display: none; }
+    .ad-rect-row { grid-template-columns: 1fr; }
+    .section { padding: 3rem 1.5rem; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Doçentlik<span>Yolu</span></a>
+    <ul class="nav-links">
+      <li><a href="#hizmetler">Hizmetler</a></li>
+      <li><a href="#nasil-calisir">Nasıl çalışır?</a></li>
+      <li><a href="#sss">S.S.S.</a></li>
+      <li><a href="#iletisim">İletişim</a></li>
+    </ul>
+    <a href="#iletisim" class="nav-cta">Teklif alın</a>
+  </div>
+</nav>
+
+<!-- REKLAM 1: Leaderboard — hero üstü -->
+<div class="ad-strip">
+  <div class="ad-box leader">
+    <span class="ad-label">Reklam alanı · Google AdSense / Doğrudan Sponsorluk</span>
+    <span class="ad-size">Leaderboard 728 × 90 px</span>
+    <span class="ad-note">En yüksek görünürlük — her sayfada gösterilir</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-badge">docentlikyolu.com</div>
+    <h1>Doçentliğe giden<br>yolu <em>kısaltıyoruz</em></h1>
+    <p class="hero-desc">Makale danışmanlığından istatistiğe, etik kurul başvurusundan ÜAK dosyasına — doçentlik sürecinizin her adımında uzman desteği.</p>
+    <div class="hero-actions">
+      <a href="#iletisim" class="btn-dark">Ücretsiz ön görüşme →</a>
+      <a href="#hizmetler" class="btn-ghost">Hizmetleri incele</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">120<span>+</span></div>
+      <div class="hero-stat-lbl">Başarılı doçent</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">340<span>+</span></div>
+      <div class="hero-stat-lbl">Yayımlanan makale</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">%94</div>
+      <div class="hero-stat-lbl">Kabul oranı</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">24<span>s</span></div>
+      <div class="hero-stat-lbl">Geri dönüş süresi</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- HİZMETLER -->
+<div id="hizmetler" class="section">
+  <div class="section-tag">Hizmetler</div>
+  <h2 class="section-title">İhtiyacınız ne olursa<br>yanınızdayız</h2>
+  <p class="section-desc">Doçentlik sürecinin her aşaması için uzman ekibimiz devrede. Projenize özel teklif için bizimle iletişime geçin.</p>
+
+  <div class="services-grid">
+    <div class="service-item highlight">
+      <div class="service-num">01</div>
+      <div class="service-name">Makale danışmanlığı</div>
+      <div class="service-desc">Makale yazımı, revizyon ve dergiye uygun biçimlendirme desteği.</div>
+      <span class="service-tag">En çok tercih edilen</span>
+    </div>
+    <div class="service-item">
+      <div class="service-num">02</div>
+      <div class="service-name">Etik kurul başvurusu</div>
+      <div class="service-desc">Başvuru formu hazırlama, protokol yazımı ve kurul süreci takibi.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">03</div>
+      <div class="service-name">İstatistik analizi</div>
+      <div class="service-desc">SPSS, R, örneklem hesaplama ve metodoloji danışmanlığı.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">04</div>
+      <div class="service-name">Hakem yanıtı yazımı</div>
+      <div class="service-desc">Major/minor revizyon süreçlerinde profesyonel İngilizce yanıt hazırlama.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">05</div>
+      <div class="service-name">Doçentlik koçluğu</div>
+      <div class="service-desc">ÜAK kriterleri, dosya hazırlama ve sözlü sınav hazırlığı.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">06</div>
+      <div class="service-name">Tıp İngilizcesi</div>
+      <div class="service-desc">Makale dil düzeltme ve Türkçe → İngilizce akademik editing.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">07</div>
+      <div class="service-name">Dergi seçimi & submission</div>
+      <div class="service-desc">Çalışmanıza en uygun dergiyi belirleme ve gönderim sürecinde destek.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">08</div>
+      <div class="service-name">Klinik hesaplama araçları</div>
+      <div class="service-desc">Risk skorları ve örneklem hesaplama — ücretsiz online araçlar.</div>
+    </div>
+  </div>
+</div>
+
+<!-- REKLAM 2: Banner — hizmetler sonrası -->
+<div class="ad-section">
+  <div class="ad-section-inner">
+    <div class="ad-box banner" style="max-width:100%;">
+      <span class="ad-label">Reklam alanı · Medikal / İlaç Firması Sponsorluğu</span>
+      <span class="ad-size">Banner 728 × 120 px</span>
+      <span class="ad-note">Hedef kitle: Türkiye'deki uzman hekimler ve akademisyenler</span>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- NASIL ÇALIŞIR -->
+<div id="nasil-calisir" class="section">
+  <div class="section-tag">Süreç</div>
+  <h2 class="section-title">Nasıl çalışır?</h2>
+  <p class="section-desc">Başvurudan teslimata kadar şeffaf ve öngörülebilir bir süreç.</p>
+
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="how-num">1</div>
+      <div class="how-title">Başvurun</div>
+      <div class="how-desc">İhtiyacınızı formla bildirin, 24 saat içinde size dönelim.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">2</div>
+      <div class="how-title">Teklif alın</div>
+      <div class="how-desc">Projenize özel fiyat ve takvim teklifi sunalım.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">3</div>
+      <div class="how-title">Çalışmaya başlayın</div>
+      <div class="how-desc">Uzman ekibimiz dosyanızı teslim alır, süreci yönetir.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">4</div>
+      <div class="how-title">Yayımlayın</div>
+      <div class="how-desc">Kabule kadar her aşamada yanınızdayız.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SSS -->
+<div id="sss" class="section">
+  <div class="section-tag">S.S.S.</div>
+  <h2 class="section-title">Sık sorulan sorular</h2>
+  <p class="section-desc">Aklınızdaki soruların cevabını burada bulamazsanız bize yazın.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Hangi uzmanlık alanlarına hizmet veriyorsunuz? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Tüm tıbbi uzmanlık alanlarına hizmet veriyoruz — dahiliye, cerrahi, temel bilimler ve tüm klinik branşlar dahil.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Etik kurul başvurusu için ne kadar önceden başvurmalıyım? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Etik kurul süreçleri kuruma göre 2–8 hafta sürebilir. Çalışmanızı planlar planlamaz başvurmanızı öneriyoruz. Acil durumlarda da destek sağlıyoruz.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Danışmanlık hizmeti akademik etik açısından sorun yaratır mı? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Hayır. Akademik danışmanlık, tıp dünyasında yaygın ve kabul görmüş bir uygulamadır. Yazarın entelektüel katkısı ve sorumluluğu her zaman korunur; danışmanlık hizmeti yalnızca teknik ve metodolojik destek sağlar.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">ÜAK kriterleri sürekli değişiyor, güncel bilgiye sahip misiniz? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Evet. ÜAK kriterlerini ve YÖK mevzuatını yakından takip ediyoruz; dosyanızı her zaman güncel kriterlere göre hazırlıyoruz.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Süreçler ne kadar sürüyor? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Hizmet türüne göre değişir: hakem yanıtı 2–5 iş günü, istatistik analizi 1–2 hafta, makale danışmanlığı 2–6 hafta, etik kurul başvuru hazırlığı 1 hafta + kurul süreci.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Ödeme nasıl yapılıyor? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Banka havalesi veya kredi kartıyla online ödeme kabul ediyoruz. Büyük projelerde %50 peşin, %50 teslimde ödeme seçeneği mevcuttur.</div>
+    </div>
+  </div>
+</div>
+
+<!-- REKLAM 3: İkili rectangle -->
+<div class="ad-section">
+  <div class="ad-rect-row">
+    <div class="ad-box rect" style="width:100%; max-width:100%;">
+      <span class="ad-label">Reklam alanı · Google AdSense</span>
+      <span class="ad-size">Medium Rectangle 300 × 250 px</span>
+      <span class="ad-note">En yüksek CTR formatlardanbirisi</span>
+    </div>
+    <div class="ad-box rect" style="width:100%; max-width:100%;">
+      <span class="ad-label">Reklam alanı · Doğrudan Sponsorluk</span>
+      <span class="ad-size">Medium Rectangle 300 × 250 px</span>
+      <span class="ad-note">Medikal şirket / kongre sponsorluğu</span>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div id="iletisim" class="section">
+  <div class="cta-block">
+    <h2>Nereden başlayacağınızdan<br>emin değil misiniz?</h2>
+    <p>Doçentlik sürecinizi birlikte değerlendirelim.<br>İlk görüşme tamamen ücretsizdir.</p>
+    <a href="mailto:info@docentlikyolu.com" class="btn-gold">Ücretsiz ön görüşme talep edin →</a>
+  </div>
+</div>
+
+<!-- REKLAM 4: Footer üstü leaderboard -->
+<div class="ad-section">
+  <div class="ad-section-inner">
+    <div class="ad-box leader" style="max-width:100%;">
+      <span class="ad-label">Reklam alanı · Google AdSense Sticky Footer Alternatifi</span>
+      <span class="ad-size">Leaderboard 728 × 90 px</span>
+      <span class="ad-note">Footer üstü — sayfayı tamamen kaydıran her kullanıcı görür</span>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">Doçentlik<span>Yolu</span></a>
+    <div class="footer-links">
+      <a href="#hizmetler">Hizmetler</a>
+      <a href="#nasil-calisir">Nasıl çalışır?</a>
+      <a href="#sss">S.S.S.</a>
+      <a href="mailto:info@docentlikyolu.com">İletişim</a>
+      <a href="#">Gizlilik politikası</a>
+    </div>
+    <span class="footer-copy">© 2026 docentlikyolu.com</span>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(b => {
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    btn.classList.add('open');
+    answer.classList.add('open');
+  }
+}
+</script>
+</body>
+</html>
